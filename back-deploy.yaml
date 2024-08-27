@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bantcv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bantcv
+  template:
+    metadata:
+      name: bantcv
+      labels:
+        app: bantcv
+    spec:
+      containers:
+        - name: bantcv
+          image: xtaoistzz8t/bantcv:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bantcv
+spec:
+  type: NodePort
+  selector:
+    app: bantcv
+  ports:
+    - port: 5000
+      targetPort: 5000
+      nodePort: 30001
