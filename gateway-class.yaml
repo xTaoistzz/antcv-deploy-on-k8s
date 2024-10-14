@@ -61,3 +61,26 @@ spec:
             name: bantcv
             port: 
               number: 5000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bantcv-ssl
+  annotations:
+    konghq.com/strip-path: 'true'
+spec:
+  ingressClassName: kong
+  tls:
+  - hosts:
+    - www.bantcv.com
+  rules:
+  - host: www.bantcv.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bantcv
+            port: 
+              number: 3000
